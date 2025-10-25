@@ -17,14 +17,14 @@ Van benne: animáció (ontimer), eseménykezelés (onkey, onscreenclick), új bo
 ----------------------------------------------------------------
 
 Vezérlés 
-Egérkattintás: - középpont áthelyezése
+Egérkattintás: - középpont áthelyezése.
 Billentyűk:
-   N - új bolygó 
-   Delete - utolsó bolygó törlése 
-   Z - sebesség csökkentése 
-   X - sebesség növelése
-   Space - animáció megállítása; Space újra - animáció folytatása  
-   Esc - kilépés
+   N - új bolygó. 
+   Delete - utolsó bolygó törlése. 
+   Z - sebesség csökkentése. 
+   X - sebesség növelése.
+   Space - animáció megállítása; Space újra - animáció folytatása.  
+   Esc - kilépés.
 -------------------------------------------------------------------------------------
 
 Modulok és a modulokban használt függvények
