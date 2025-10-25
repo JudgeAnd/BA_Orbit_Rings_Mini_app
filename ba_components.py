@@ -1,6 +1,6 @@
 class BAPlanet:
-    def __init__(self, R, theta, omega, size, color):
-        self.R = R
+    def __init__(self, r, theta, omega, size, color):
+        self.R = r
         self.theta = theta
         self.omega = omega
         self.size = size

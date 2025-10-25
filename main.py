@@ -1,11 +1,11 @@
 import turtle
 import random
-from ba_orbits import BA_step
+from math import radians
+from ba_orbits import BA_step, BA_polar_to_cart
 from ba_components import BAPlanet, BAAppState
-from math import sin, cos, pi, radians
 
 root = turtle.Screen()
-root.title("BA Orbit Rings Mini app")
+root.title("BA Orbit Rings Mini")
 root.bgcolor("white")
 turtle.colormode(255)
 turtle.tracer(0, 0)
@@ -18,7 +18,7 @@ for t in (orb_t, planet_t, info_t):
     t.speed(0)
 planet_t.pensize(4)
 
-app = BAAppState([], (0,0), info_t)
+app = BAAppState([], (0, 0), info_t)
 
 def BA_redraw():
     orb_t.clear()
@@ -31,8 +31,7 @@ def BA_redraw():
         orb_t.pendown()
         orb_t.circle(p.R)
     for p in app.planets:
-        x = cx + p.R * cos(p.theta)
-        y = cy + p.R * sin(p.theta)
+        x, y = BA_polar_to_cart(cx, cy, p.R, p.theta)
         planet_t.penup()
         planet_t.goto(x, y - p.size)
         planet_t.pendown()
@@ -43,7 +42,7 @@ def BA_redraw():
         planet_t.end_fill()
     info_t.clear()
     info_t.penup()
-    info_t.goto(-root.window_width()//2+16, root.window_height()//2-36)
+    info_t.goto(-root.window_width()//2 + 16, root.window_height()//2 - 36)
     info_t.write(f"planets={len(app.planets)}  speed×{app.speed:.2f}", font=("Arial", 12, "normal"))
     turtle.update()
 
@@ -54,14 +53,17 @@ def BA_anim():
     root.ontimer(BA_anim, 30)
 
 def BA_add_planet(x=None, y=None):
-    cx, cy = app.center
-    R = random.randrange(50, 260)
+    if x is not None and y is not None:
+        cx, cy = app.center
+        dx, dy = x - cx, y - cy
+        r = max(30, int((dx*dx + dy*dy) ** 0.5))
+    else:
+        r = random.randrange(50, 260)
     size = random.randrange(6, 12)
-    w = random.choice([-1,1]) * random.uniform(0.2, 1.0)
-    theta = random.uniform(0, 2*pi)
+    omega = random.choice([-1, 1]) * random.uniform(0.2, 1.0)
     theta = radians(random.uniform(0, 360))
     color = (random.randrange(0,256), random.randrange(0,256), random.randrange(0,256))
-    app.planets.append(BAPlanet(R, theta, w, size, color))
+    app.planets.append(BAPlanet(r, theta, omega, size, color))
 
 def BA_remove():
     if app.planets:
